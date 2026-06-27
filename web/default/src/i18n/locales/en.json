@@ -3489,6 +3489,8 @@
     "Recharge link not configured": "Recharge link not configured",
     "No recharge options available. Please contact administrator.": "No recharge options available. Please contact administrator.",
     "Failed to fetch recharge links": "Failed to fetch recharge links",
+    "Email (Optional)": "Email (Optional)",
+    "Optional: Used for password recovery only. No verification email will be sent.": "Optional: Used for password recovery only. No verification email will be sent.",
     "Recharge Links": "Recharge Links",
     "Configure recharge links for different amounts": "Configure recharge links for different amounts",
     "Configure the links for each recharge amount. Users will be redirected to these links when they click on the recharge buttons.": "Configure the links for each recharge amount. Users will be redirected to these links when they click on the recharge buttons.",

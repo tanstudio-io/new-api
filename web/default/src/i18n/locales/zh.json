@@ -3489,6 +3489,8 @@
     "Recharge link not configured": "充值链接未配置",
     "No recharge options available. Please contact administrator.": "暂无充值选项，请联系管理员。",
     "Failed to fetch recharge links": "获取充值链接失败",
+    "Email (Optional)": "邮箱（选填）",
+    "Optional: Used for password recovery only. No verification email will be sent.": "选填：仅用于密码找回，不会发送验证邮件。",
     "Recharge Links": "充值链接",
     "Configure recharge links for different amounts": "配置不同金额的充值链接",
     "Configure the links for each recharge amount. Users will be redirected to these links when they click on the recharge buttons.": "配置每个充值金额的链接。用户点击充值按钮时将被重定向到这些链接。",
