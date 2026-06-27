@@ -22,7 +22,6 @@ import { toast } from 'sonner'
 import { Plus, Trash2, Save, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import {
   Table,
@@ -144,7 +143,6 @@ export function RechargeLinksSettingsSection() {
   return (
     <SettingsSection
       title={t('Recharge Links')}
-      description={t('Configure recharge links for different amounts')}
     >
       <div className='space-y-4'>
         <div className='flex items-center justify-between'>

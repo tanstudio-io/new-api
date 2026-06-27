@@ -16,11 +16,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useState, useEffect } from 'react'
 import { Gift, ExternalLink, Loader2, Receipt, WalletCards } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
-import { cn } from '@/lib/utils'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -28,96 +26,41 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
 import { TitledCard } from '@/components/ui/titled-card'
-import {
-  getPaymentIcon,
-  getMinTopupAmount,
-} from '../lib'
 import type {
-  PaymentMethod,
-  PresetAmount,
-  TopupInfo,
   CreemProduct,
-  WaffoPayMethod,
 } from '../types'
 import { CreemProductsSection } from './creem-products-section'
 import { useRechargeLinks } from '../hooks/use-recharge-links'
 
 interface RechargeFormCardProps {
-  topupInfo: TopupInfo | null
-  presetAmounts: PresetAmount[]
-  selectedPreset: number | null
-  onSelectPreset: (preset: PresetAmount) => void
-  topupAmount: number
-  onTopupAmountChange: (amount: number) => void
-  paymentAmount: number
-  calculating: boolean
-  onPaymentMethodSelect: (method: PaymentMethod) => void
-  paymentLoading: string | null
-  redemptionCode: string
-  onRedemptionCodeChange: (code: string) => void
-  onRedeem: () => void
-  redeeming: boolean
   topupLink?: string
   loading?: boolean
-  priceRatio?: number
-  usdExchangeRate?: number
   onOpenBilling?: () => void
   creemProducts?: CreemProduct[]
   enableCreemTopup?: boolean
   onCreemProductSelect?: (product: CreemProduct) => void
-  enableWaffoTopup?: boolean
-  waffoPayMethods?: WaffoPayMethod[]
-  waffoMinTopup?: number
-  onWaffoMethodSelect?: (method: WaffoPayMethod, index: number) => void
-  enableWaffoPancakeTopup?: boolean
+  redemptionCode: string
+  onRedemptionCodeChange: (code: string) => void
+  onRedeem: () => void
+  redeeming: boolean
+  enableRedemption?: boolean
 }
 
 export function RechargeFormCard({
-  topupInfo,
-  presetAmounts,
-  selectedPreset,
-  onSelectPreset,
-  topupAmount,
-  onTopupAmountChange,
-  paymentAmount,
-  calculating,
-  onPaymentMethodSelect,
-  paymentLoading,
-  redemptionCode,
-  onRedemptionCodeChange,
-  onRedeem,
-  redeeming,
   topupLink,
   loading,
-  priceRatio = 1,
-  usdExchangeRate = 1,
   onOpenBilling,
   creemProducts,
   enableCreemTopup,
   onCreemProductSelect,
-  enableWaffoTopup,
-  waffoPayMethods,
-  waffoMinTopup,
-  onWaffoMethodSelect,
-  enableWaffoPancakeTopup,
+  redemptionCode,
+  onRedemptionCodeChange,
+  onRedeem,
+  redeeming,
+  enableRedemption = true,
 }: RechargeFormCardProps) {
   const { t } = useTranslation()
-  const [localAmount, setLocalAmount] = useState(topupAmount.toString())
   const { rechargeLinks, loading: rechargeLinksLoading } = useRechargeLinks()
-
-  useEffect(() => {
-    setLocalAmount(topupAmount.toString())
-  }, [topupAmount])
-
-  const handleAmountChange = (value: string) => {
-    setLocalAmount(value)
-    const numValue = parseInt(value) || 0
-    if (numValue >= 0) {
-      onTopupAmountChange(numValue)
-    }
-  }
-
-  const redemptionEnabled = topupInfo?.enable_redemption !== false
 
   if (loading) {
     return (
@@ -233,7 +176,7 @@ export function RechargeFormCard({
         )}
 
       {/* Redemption Code Section - Now the main input area */}
-      {redemptionEnabled ? (
+      {enableRedemption ? (
         <div className='space-y-2.5 border-t pt-4 sm:space-y-3 sm:pt-6'>
           <div className='flex items-center gap-2'>
             <Gift className='text-muted-foreground h-4 w-4' />
