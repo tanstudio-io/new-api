@@ -84,6 +84,9 @@ func SetRelayRouter(router *gin.Engine) {
 		httpRouter := relayV1Router.Group("")
 		httpRouter.Use(middleware.Distribute())
 
+		// 统一入口：自动检测格式（OpenAI/Claude/Gemini）
+		httpRouter.POST("/auto", controller.UnifiedRelay)
+
 		// claude related routes
 		httpRouter.POST("/messages", func(c *gin.Context) {
 			controller.Relay(c, types.RelayFormatClaude)
