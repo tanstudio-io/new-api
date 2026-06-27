@@ -105,6 +105,7 @@ func SetApiRouter(router *gin.Engine) {
 				selfRoute.POST("/waffo/pay", middleware.CriticalRateLimit(), controller.RequestWaffoPay)
 				selfRoute.POST("/waffo-pancake/amount", controller.RequestWaffoPancakeAmount)
 				selfRoute.POST("/waffo-pancake/pay", middleware.CriticalRateLimit(), controller.RequestWaffoPancakePay)
+				selfRoute.GET("/recharge-links", controller.GetEnabledRechargeLinks)
 				selfRoute.POST("/aff_transfer", controller.TransferAffQuota)
 				selfRoute.PUT("/setting", controller.UpdateUserSetting)
 
@@ -196,6 +197,17 @@ func SetApiRouter(router *gin.Engine) {
 			optionRoute.POST("/waffo-pancake/save", controller.SaveWaffoPancake)
 			optionRoute.POST("/waffo-pancake/subscription-product", controller.CreateWaffoPancakeSubscriptionProduct)
 			optionRoute.GET("/waffo-pancake/subscription-product-options", controller.ListWaffoPancakeSubscriptionProductOptions)
+		}
+
+		// Recharge link management (admin only)
+		rechargeLinkRoute := apiRouter.Group("/recharge-link")
+		rechargeLinkRoute.Use(middleware.AdminAuth())
+		{
+			rechargeLinkRoute.GET("/", controller.GetRechargeLinks)
+			rechargeLinkRoute.POST("/", controller.CreateRechargeLink)
+			rechargeLinkRoute.PUT("/:id", controller.UpdateRechargeLink)
+			rechargeLinkRoute.DELETE("/:id", controller.DeleteRechargeLink)
+			rechargeLinkRoute.POST("/batch", controller.BatchUpdateRechargeLinks)
 		}
 
 		// Custom OAuth provider management (root only)
